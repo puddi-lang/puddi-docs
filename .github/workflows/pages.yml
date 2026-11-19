@@ -1,0 +1,69 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MDBOOK_VERSION: 0.5.4
+
+jobs:
+  build:
+    name: build and check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install pud
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh \
+            | PUD_VERSION="$(tr -d '[:space:]' < PUDDI_VERSION)" PUD_NO_MODIFY_PATH=1 sh
+          echo "$HOME/.pud/bin" >> "$GITHUB_PATH"
+
+      - name: Install mdBook
+        run: |
+          mkdir -p "$HOME/.mdbook"
+          curl -fsSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C "$HOME/.mdbook"
+          echo "$HOME/.mdbook" >> "$GITHUB_PATH"
+
+      - name: Check examples
+        run: node tools/check-examples.mjs
+
+      - name: Build
+        run: |
+          tools/sync.sh
+          mdbook build
+
+      - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request'
+        with:
+          path: book
+
+  deploy:
+    name: deploy
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

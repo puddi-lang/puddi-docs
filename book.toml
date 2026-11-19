@@ -1,0 +1,21 @@
+[book]
+title = "The Puddi Documentation"
+description = "Guide, toolchain and library documentation for Puddi, a statically typed language for WebAssembly"
+authors = ["Puddi community"]
+language = "en"
+src = "src"
+
+[output.html]
+site-url = "/puddi-docs/"
+git-repository-url = "https://github.com/puddi-lang/puddi-docs"
+edit-url-template = "https://github.com/puddi-lang/puddi-docs/edit/main/{path}"
+additional-js = ["theme/puddi-highlight.js"]
+default-theme = "light"
+preferred-dark-theme = "navy"
+
+[output.html.search]
+limit-results = 20
+
+[output.html.fold]
+enable = true
+level = 1
