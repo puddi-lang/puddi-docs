@@ -10,7 +10,7 @@
 | 函数 | `print`、`eprint`、`panic`、`assert`、`assert_msg`、`assert_eq`、`assert_ne`、`same`、`min`、`max`、`todo` |
 | 值 | `task`，用于[任务作用域](../guide/async.md) |
 
-预导入项使用 Puddi 编写，参见[实现源码](https://github.com/puddi-lang/puddi/blob/v0.1.0/src/prelude.pud)。
+预导入项使用 Puddi 编写，参见[实现源码](https://github.com/puddi-lang/puddi/blob/v0.1.1/src/prelude.pud)。
 
 ## 函数
 

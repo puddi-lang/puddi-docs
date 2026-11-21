@@ -20,12 +20,12 @@ The script downloads the latest [release](https://github.com/puddi-lang/puddi/re
 
 | Variable | Effect |
 |---|---|
-| `PUD_VERSION` | install a specific release, for example `v0.1.0` (default: latest) |
+| `PUD_VERSION` | install a specific release, for example `v0.1.1` (default: latest) |
 | `PUD_INSTALL` | install into this directory instead of `~/.pud` |
 | `PUD_NO_MODIFY_PATH` | set to `1` to leave shell profiles and `PATH` alone |
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | PUD_VERSION=v0.1.0 sh
+curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | PUD_VERSION=v0.1.1 sh
 ```
 
 Run the script again to upgrade. To uninstall, remove the installed executable and remove the path entry the script added to your shell profile or Windows user `PATH`. If you used `PUD_INSTALL`, look under that directory instead of `~/.pud`.
@@ -49,7 +49,7 @@ Unpack the archive and put `pud` (or `pud.exe`) anywhere on your `PATH`.
 With a current stable Rust toolchain:
 
 ```sh
-cargo install --locked --git https://github.com/puddi-lang/puddi --tag v0.1.0
+cargo install --locked --git https://github.com/puddi-lang/puddi --tag v0.1.1
 ```
 
 `cargo install --no-default-features` builds `pud` without the embedded runtime. It compiles much faster, but `pud run` then needs an external WASI 0.3 host (see [Targets](../toolchain/targets.md)).

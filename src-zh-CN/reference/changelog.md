@@ -1,8 +1,29 @@
 # 更新日志
 
-<!-- Puddi release: v0.1.0 -->
+<!-- Puddi release: v0.1.1 -->
 
-本页记录 Puddi v0.1.0 的正式发布内容。后续主分支进展见[上游更新日志](https://github.com/puddi-lang/puddi/blob/main/CHANGELOG.md#unreleased)。
+本页记录 Puddi 0.1 系列的正式发布内容。后续主分支进展见[上游更新日志](https://github.com/puddi-lang/puddi/blob/main/CHANGELOG.md#unreleased)。
+
+## 0.1.1
+
+发布于 2026-11-21。本次更新改进了实现 0.1 语言规范草案的工具链。
+
+### 修复
+
+- `pud` 在解析 `--target=<值>` 时会拒绝未知或空的目标名，与 `--target <值>` 和 `-t <值>` 一致。见 [PR #6](https://github.com/puddi-lang/puddi/pull/6)。
+
+### 性能
+
+- 内置汇编器可并行组装生成的 WebAssembly 文本。编译器也可并行解析大文件并生成函数代码。
+- `pud build` 和 `pud run` 会复用输入未变的构建产物。Wasmtime 按函数缓存机器码，修改源码后可复用未变函数的编译结果。
+- Wasmtime 使用复制式垃圾回收。新的 IR 优化器减少闭包和小函数调用开销，迭代器和标准库中的排序、映射等操作也减少了内存分配和重复工作。
+
+### 文档
+
+- 上线完整简体中文文档，覆盖语言指南、规范、工具链、互操作及标准库。
+- 新增贡献指南、行为准则、安全策略、编译器架构与发布流程，以及尚未生效的治理草案。
+
+0.1 草案的[已知一致性差异](conformance.md#known-gaps-in-01)仍适用。[查看完整发行说明](https://github.com/puddi-lang/puddi/releases/tag/v0.1.1)。
 
 ## 0.1.0
 

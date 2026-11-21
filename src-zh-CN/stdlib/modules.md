@@ -18,4 +18,4 @@
 
 “依赖宿主”表示目标 world 须包含相应[接口](../interop/plugins.md#host-capabilities)。在 `wasi` 上，`std.worker` 使用内嵌运行时提供的 `puddi:runtime` 接口。插件的 `std.log` 在 world 包含日志接口时写入宿主，否则不输出。
 
-这些模块用 Puddi 编写，见[标准库源码](https://github.com/puddi-lang/puddi/tree/v0.1.0/std)。
+这些模块用 Puddi 编写，见[标准库源码](https://github.com/puddi-lang/puddi/tree/v0.1.1/std)。

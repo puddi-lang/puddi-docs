@@ -10,11 +10,11 @@ Puddi compiles source and WIT bindings to WebAssembly. The [compiler architectur
 | WebAssembly | Lowers WasmGC types and instructions, encodes the module and wraps it as a component | `src/codegen.rs`, `src/wit.rs` |
 | Hosting | Runs the component in Wasmtime or extracts the core module for a JavaScript host | `src/runner.rs`, `src/runtime.mjs` |
 
-## Changes on main after v0.1.0
+## Optimization and diagnostics
 
-The documentation examples target the release in `PUDDI_VERSION`. The compiler’s main branch also has an IR optimization pass, a custom WebAssembly assembler, parallel parsing and code generation, build and machine-code caches, and changes to the Wasmtime startup path. See the [unreleased changelog](https://github.com/puddi-lang/puddi/blob/main/CHANGELOG.md#unreleased) for details.
+Puddi v0.1.1 includes an IR optimization pass, a built-in WebAssembly assembler, parallel parsing and code generation, and caches for builds and Wasmtime machine code. See the [v0.1.1 release notes](https://github.com/puddi-lang/puddi/releases/tag/v0.1.1) for details.
 
-| Main branch setting | What it does |
+| Environment variable | What it does |
 |---|---|
 | `PUD_TIME=1` | Print elapsed time at compiler phases |
 | `PUD_NO_CACHE=1` | Disable the build and Wasmtime caches |

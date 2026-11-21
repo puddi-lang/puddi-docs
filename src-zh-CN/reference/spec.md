@@ -1,8 +1,8 @@
 # Puddi 语言规范
 
-<!-- Puddi release: v0.1.0 -->
+<!-- Puddi release: v0.1.1 -->
 
-> 本页翻译自 v0.1.0 的 [SPEC.md](https://github.com/puddi-lang/puddi/blob/v0.1.0/SPEC.md)。小节编号与英文原文及一致性用例一致。解释有出入时，以该发行版原文为准。编译器与草案的差异见[一致性测试](conformance.md#known-gaps-in-01)。
+> 本页翻译自 v0.1.1 的 [SPEC.md](https://github.com/puddi-lang/puddi/blob/v0.1.1/SPEC.md)。小节编号与英文原文及一致性用例一致。解释有出入时，以该发行版原文为准。编译器与草案的差异见[一致性测试](conformance.md#known-gaps-in-01)。
 
 版本为 0.1 草案。草案内容已齐备，第 14 节列出 v1 之后才考虑的功能。
 

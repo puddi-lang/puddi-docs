@@ -10,11 +10,11 @@ Puddi 将源码和 WIT 绑定编译为 WebAssembly。主分支的完整流程见
 | WebAssembly | 生成 WasmGC 类型和指令、编码核心模块并封装组件 | `src/codegen.rs`、`src/wit.rs` |
 | 宿主 | 在 Wasmtime 中运行组件，或由 JavaScript 宿主加载核心模块 | `src/runner.rs`、`src/runtime.mjs` |
 
-## v0.1.0 之后的主分支改动
+## 优化与诊断
 
-本书示例用 `PUDDI_VERSION` 指定的发行版检查。主分支新增 IR 优化、自研 WebAssembly 汇编器、并行解析与代码生成、构建和机器码缓存，并调整了 Wasmtime 的启动流程。见[尚未发布的改动](https://github.com/puddi-lang/puddi/blob/main/CHANGELOG.md#unreleased)。
+Puddi v0.1.1 引入 IR 优化、内置 WebAssembly 汇编器、并行解析与代码生成，并缓存构建产物和 Wasmtime 机器码。详情见 [v0.1.1 发行说明](https://github.com/puddi-lang/puddi/releases/tag/v0.1.1)。
 
-| 主分支选项 | 用途 |
+| 环境变量 | 用途 |
 |---|---|
 | `PUD_TIME=1` | 打印各阶段的耗时 |
 | `PUD_NO_CACHE=1` | 关闭构建与 Wasmtime 缓存 |
