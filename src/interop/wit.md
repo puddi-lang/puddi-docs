@@ -46,6 +46,8 @@ The bindings, including the canonical ABI lowering and lifting of every value, a
 
 `export fn` declares a function that the component exports. On the `plugin` target the exports must match the host's world; on `wasi`, exports are used with worlds other than `wasi:cli/command`. See [Plugins](plugins.md).
 
+The world can use records, variants, enums and flags from an interface in its export signatures.
+
 ## Limits
 
 - `pud test` runs on the JavaScript host, so tests cannot call WIT imports.

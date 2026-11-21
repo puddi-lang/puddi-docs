@@ -48,4 +48,4 @@ true
 
 `export fn` 声明组件导出。在 `plugin` 上，导出要与宿主 world 一致。`wasi:cli/command` 以外的 WASI world 也用此方式实现。
 
-`pud test` 的 JavaScript 宿主不支持调用 WIT 导入。`pud run` 的插件支持范围见[宿主能力](plugins.md#host-capabilities)。0.1 的部分 WIT 类型只能用于导入，详见[已知差异](../reference/conformance.md#known-gaps-in-01)。
+v0.1.2 支持在 WIT 导出中使用接口声明的记录、变体、枚举和标志位。`pud test` 的 JavaScript 宿主不支持调用 WIT 导入。`pud run` 的插件支持范围见[宿主能力](plugins.md#host-capabilities)。

@@ -1,6 +1,6 @@
 # Implementation status
 
-The `pud` compiler implements the draft 0.1 language, with the gaps listed by the [conformance suite](conformance.md#known-gaps-in-01).
+The [conformance suite](conformance.md) checks the `pud` compiler against the draft 0.1 language specification.
 
 ## Language
 
@@ -8,7 +8,7 @@ Structs, enums, tuples, generics with bounds (monomorphized), traits with defaul
 
 ## Standard library
 
-The prelude plus `std.math`, `std.log`, `std.time`, `std.random`, `std.io`, `std.fs`, `std.env`, `std.json`, `std.http`, `std.worker` and `std.dom`, each on the targets listed in [Modules by target](../stdlib/modules.md).
+See the [prelude](../stdlib/prelude.md) and the [standard library modules](../stdlib/modules.md) available on each target.
 
 ## Known limitations
 
@@ -17,7 +17,6 @@ The prelude plus `std.math`, `std.log`, `std.time`, `std.random`, `std.io`, `std
 - The embedded runner links WASI 0.3.0 from Wasmtime, which satisfies the 0.3.2 imports through semver matching.
 - `pud test` runs tests on the JavaScript host, so tests cannot call WIT imports.
 - Grapheme segmentation is an approximation (combining marks, variation selectors, ZWJ sequences), and case mapping covers ASCII only.
-- The compiler does not warn about naming-convention violations yet.
 
 ## Deferred past version 1
 

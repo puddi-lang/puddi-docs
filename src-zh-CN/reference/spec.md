@@ -1,8 +1,8 @@
 # Puddi 语言规范
 
-<!-- Puddi release: v0.1.1 -->
+<!-- Puddi release: v0.1.2 -->
 
-> 本页翻译自 v0.1.1 的 [SPEC.md](https://github.com/puddi-lang/puddi/blob/v0.1.1/SPEC.md)。小节编号与英文原文及一致性用例一致。解释有出入时，以该发行版原文为准。编译器与草案的差异见[一致性测试](conformance.md#known-gaps-in-01)。
+> 本页翻译自 v0.1.2 的 [SPEC.md](https://github.com/puddi-lang/puddi/blob/v0.1.2/SPEC.md)。小节编号与英文原文及一致性用例一致。解释有出入时，以该发行版原文为准。覆盖情况见[一致性测试](conformance.md)。
 
 版本为 0.1 草案。草案内容已齐备，第 14 节列出 v1 之后才考虑的功能。
 
@@ -315,7 +315,7 @@ type UserId = Int
 type Callback<T> = fn(T) -> ()
 ```
 
-类型别名与原类型相同，不引入新类型。
+类型别名是目标类型的另一个名称。别名可以引用后续声明，展开时须无循环依赖。
 
 ## 4. 表达式与语句
 
@@ -480,7 +480,7 @@ const MAX_USERS: Int = 1_000
 const GREETING: Str = "hi"
 ```
 
-常量的初始化表达式必须是常量表达式，包括字面量、其他常量、在常量上的算术和比较，以及由常量表达式构造的结构体、元组和枚举。
+常量的初始化表达式必须是常量表达式，包括字面量、其他常量、在常量上的算术和比较，以及由常量表达式构造的结构体、元组和枚举。初始化表达式中的名称在声明该常量的模块中解析。
 
 ### 5.4 可见性
 
@@ -756,7 +756,8 @@ async fn main() {
 
 | 模块 | browser | wasi | plugin |
 |---|---|---|---|
-| 核心（预导入项、`iter`、`fmt`、`math`、集合） | 是 | 是 | 是 |
+| 核心（预导入项和内置集合） | 是 | 是 | 是 |
+| `std.bytes`、`std.collections`、`std.csv`、`std.date`、`std.encoding`、`std.fmt`、`std.iter`、`std.math`、`std.path`、`std.stats`、`std.text` | 是 | 是 | 是 |
 | `std.json` | 是 | 是 | 是 |
 | `std.log` | 是 | 是 | 是 |
 | `std.time` | 是 | 是 | 依赖宿主 |
@@ -769,6 +770,37 @@ async fn main() {
 | `std.dom` | 是 | — | — |
 
 “依赖宿主”表示目标 world 须包含相应接口。插件的 `std.log` 在宿主有日志接口时写入它，否则不执行输出。
+
+<a id="103-portable-modules"></a>
+
+### 10.3 便携模块
+
+按名称导入模块。例如，使用 `import std.csv` 后即可调用 `csv.parse`。
+
+| 模块 | API | 行为 |
+|---|---|---|
+| `std.bytes` | `Endian.Big`、`Endian.Little`、`pack_u16`、`pack_u32`、`pack_u64`、`Reader` | 读取器创建时复制输入。它提供 `read`、`read_u8`、指定字节序的整数读取以及 `skip`、`position` 和 `remaining`。读取或跳过失败时位置不变。 |
+| `std.collections` | `Deque<T>`、`PriorityQueue<T>`、`count_by`、`group_by` | 双端队列两端的插入和移除具有摊还常数复杂度。优先队列以对数时间弹出最小值。分组保持组内的输入顺序。 |
+| `std.csv` | `parse`、`stringify`、`Format.new` | 支持带引号的字段、双引号转义以及 LF、CRLF 或 CR 行尾，同一输入可有不同列数。`Format` 的分隔符可用制表符或双引号以外的可打印 ASCII 字符。写出时使用 CRLF，并将无字段行写成一个空字段。解析错误带从零开始的字节偏移。 |
+| `std.date` | `Date`、`DateTime`、`days_in_month`、`is_leap_year` | 支持 0001 至 9999 年的公历。日期格式为 `YYYY-MM-DD`，可与自 1970-01-01 起的天数互转。时间戳格式为 `YYYY-MM-DDTHH:MM:SSZ`，可与 Unix 秒数互转。无效或越界值返回 `None`。 |
+| `std.encoding` | `hex_encode`、`hex_decode`、`base64_encode`、`base64_decode`、`base64url_encode`、`base64url_decode`、`percent_encode`、`percent_decode` | 十六进制接受两种大小写并写出小写。Base64 使用标准填充，Base64url 使用 URL 安全字符且无填充。百分号编码保留 ASCII 字母、数字和 `-`、`.`、`_`、`~`，百分号解码保留原样的加号。解码返回字节或带字节偏移的错误。 |
+| `std.fmt` | `join`、`int_radix`、`uint_radix`、`parse_int_radix`、`parse_uint_radix` | 通过 `Show` 拼接值。整数格式化和解析支持 2 至 36 进制。输出使用小写，解析接受两种大小写，有符号解析接受可选的正负号。无效输入和溢出返回 `None`。 |
+| `std.iter` | `once`、`repeat`、`from_fn`、`unfold` | 从值、回调或状态转换创建惰性迭代器。`repeat` 生成无限序列。基于回调的序列遇到第一个 `None` 时结束。 |
+| `std.json` | `parse`、`stringify`、`pretty`、`Json.at_pointer` | 支持紧凑输出和两空格缩进。指针用斜杠分段查找对象键和数组下标。`~0` 代表波浪号，`~1` 代表斜杠，空指针选中根值。指针无效或值缺失时返回 `None`。 |
+| `std.path` | `is_absolute`、`normalize`、`join`、`parent`、`file_name`、`stem`、`extension` | 以文本规则处理斜杠分隔的路径。开头的斜杠表示根目录，`join` 的右侧为绝对路径时替换左侧。空相对路径规范化为 `.`。 |
+| `std.stats` | `summarize`、`median` | 摘要包含计数、均值、极值、总体与样本方差及标准差。空样本、非有限值或摘要溢出返回 `None`。少于两个观测值时样本方差返回 `None`。 |
+| `std.text` | `strip_prefix`、`strip_suffix`、`truncate`、`pad_start`、`pad_end` | 截断长度和填充宽度按 Unicode 标量计数。前后缀精确匹配。 |
+
+```puddi
+import std.collections
+import std.csv
+
+fn main() {
+    let rows = csv.parse("fruit,red\nfruit,green\nvegetable,green").unwrap()
+    let colors = collections.count_by(rows, |row| row[1])
+    print(colors["green"])
+}
+```
 
 ## 11. 文法摘要
 

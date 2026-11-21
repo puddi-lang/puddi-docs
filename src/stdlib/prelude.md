@@ -10,7 +10,7 @@ The prelude is available in every module without an import.
 | Functions | `print`, `eprint`, `panic`, `assert`, `assert_msg`, `assert_eq`, `assert_ne`, `same`, `min`, `max`, `todo` |
 | Values | `task`, for [task scopes](../guide/async.md) |
 
-The prelude is written in Puddi: see [src/prelude.pud](https://github.com/puddi-lang/puddi/blob/main/src/prelude.pud) in the compiler repository.
+The prelude is written in Puddi: see [src/prelude.pud](https://github.com/puddi-lang/puddi/blob/v0.1.2/src/prelude.pud) in the compiler repository.
 
 ## Functions
 

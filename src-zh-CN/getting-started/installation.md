@@ -20,12 +20,12 @@ irm https://raw.githubusercontent.com/puddi-lang/puddi/main/install.ps1 | iex
 
 | 环境变量 | 用途 |
 |---|---|
-| `PUD_VERSION` | 安装指定版本，例如 `v0.1.1`；默认取最新发行版 |
+| `PUD_VERSION` | 安装指定版本，例如 `v0.1.2`；默认取最新发行版 |
 | `PUD_INSTALL` | 指定安装目录，默认 `~/.pud` |
 | `PUD_NO_MODIFY_PATH` | 设为 `1` 时保留 shell 配置与 `PATH` |
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | PUD_VERSION=v0.1.1 sh
+curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | PUD_VERSION=v0.1.2 sh
 ```
 
 升级时重新运行安装脚本。卸载时移除已安装的可执行文件，以及脚本向 shell 配置或 Windows 用户 `PATH` 写入的路径。使用过 `PUD_INSTALL` 的话，请从对应目录移除。
@@ -49,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | 
 使用当前稳定版 Rust：
 
 ```sh
-cargo install --locked --git https://github.com/puddi-lang/puddi --tag v0.1.1
+cargo install --locked --git https://github.com/puddi-lang/puddi --tag v0.1.2
 ```
 
 加上 `--no-default-features` 可省去内嵌运行时，缩短编译时间。此时用 `pud build` 构建组件，再交给兼容的外部 WASI 0.3 宿主运行。详见[构建目标](../toolchain/targets.md)。

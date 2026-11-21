@@ -6,7 +6,7 @@ The [language specification](spec.md) is the normative definition of Puddi. The 
 - every normative section (chapters 2 to 10) has at least one passing case, and CI fails if one does not;
 - cases marked `xfail` record where the compiler still differs from the spec. A known gap that gets fixed makes the run fail until the marker is removed, so the list stays accurate.
 
-Puddi 0.1 passes 143 cases and has 7 known gaps, covering all 54 normative sections. Every release binary is checked with the suite before it is published (except the cross-compiled macOS Intel build).
+Every normative section has passing coverage in v0.1.2. The release workflow runs the suite on every native release binary before publishing.
 
 ## Running it
 
@@ -30,6 +30,8 @@ node conformance/run.mjs --pud ~/.pud/bin/pud --coverage
 | `--timeout <seconds>` | set the time limit per case |
 
 ## Known gaps in 0.1
+
+The following gaps apply to v0.1.0 and v0.1.1. Their conformance cases pass in v0.1.2.
 
 | Section | Gap |
 |---|---|
