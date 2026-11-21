@@ -49,4 +49,4 @@ test "async code" {
 
 ## Where tests run
 
-`pud test` runs tests on the JavaScript host and needs Node.js 22 or newer. Because of that, tests cannot call WIT imports. Put code that talks to WIT interfaces behind a function you can replace in tests, or cover it with a small program run by `pud run`.
+`pud test` runs tests on the JavaScript host and needs Node.js 22 or newer. Async tests need a Node.js runtime with JSPI. Node.js 24 enables it by default. Tests cannot call WIT imports on this host. Put code that talks to WIT interfaces behind a function you can replace in tests, or cover it with a small program run by `pud run`.

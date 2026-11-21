@@ -36,7 +36,7 @@ for (let i = 0; i < args.length; i++) {
 if (/[\\/]/.test(pud)) pud = resolve(pud);
 
 // generated from the puddi repository, which tests its own examples
-const SKIP = new Set(["src/reference/spec.md", "src/reference/changelog.md"]);
+const SKIP = new Set(["reference/spec.md", "reference/changelog.md"]);
 
 function markdownFiles(dir) {
     const out = [];
@@ -59,10 +59,10 @@ function blocks(text) {
     return out;
 }
 
-const cases = [];
-for (const file of markdownFiles(join(root, "src"))) {
+const cases = new Map();
+for (const file of ["src", "src-zh-CN"].flatMap(dir => markdownFiles(join(root, dir)))) {
     const rel = relative(root, file).split("\\").join("/");
-    if (SKIP.has(rel)) continue;
+    if (SKIP.has(rel.split("/").slice(1).join("/"))) continue;
     const text = readFileSync(file, "utf8");
     const bs = blocks(text);
     bs.forEach((b, i) => {
@@ -76,7 +76,9 @@ for (const file of markdownFiles(join(root, "src"))) {
             : null;
         const name = `${rel}:${b.line}`;
         if (filters.length && !filters.some((f) => name.includes(f))) return;
-        cases.push({ name, body: b.body, info: b.info, output, testOnly: hasTest && !hasMain });
+        const testOnly = hasTest && !hasMain;
+        const key = JSON.stringify([b.body, b.info, output, testOnly]);
+        if (!cases.has(key)) cases.set(key, { name, body: b.body, info: b.info, output, testOnly });
     });
 }
 
@@ -120,18 +122,19 @@ async function check(c, index) {
 }
 
 const failures = [];
+const examples = [...cases.values()];
 let next = 0;
 await Promise.all(
     Array.from({ length: Math.max(1, jobs) }, async () => {
-        while (next < cases.length) {
+        while (next < examples.length) {
             const i = next++;
-            const err = await check(cases[i], i);
-            if (err) failures.push(`${cases[i].name}: ${err}`);
+            const err = await check(examples[i], i);
+            if (err) failures.push(`${examples[i].name}: ${err}`);
         }
     }),
 );
 rmSync(work, { recursive: true, force: true });
 
 for (const f of failures) console.log(`FAIL ${f}\n`);
-console.log(`${cases.length - failures.length} of ${cases.length} examples passed`);
+console.log(`${examples.length - failures.length} of ${examples.length} examples passed`);
 process.exit(failures.length ? 1 : 0);

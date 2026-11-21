@@ -27,7 +27,7 @@ fn main() {
 
 ## std.fs
 
-Paths are resolved against the directories the host makes available; `pud run` gives the program the current directory.
+Paths are resolved against the directories the host makes available. The embedded `pud run` runner preopens the current working directory and `/` with read/write access and inherits the environment from the calling process. Run programs you trust, and use a host with narrower preopens and environment settings when you need tighter isolation.
 
 | Function | Meaning |
 |---|---|

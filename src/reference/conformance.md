@@ -26,6 +26,8 @@ node conformance/run.mjs --pud ~/.pud/bin/pud --coverage
 | `--strict-coverage` | fail when a normative section has no passing case |
 | `--json <file>` | write a machine-readable report |
 | `--list` | list the cases without running them |
+| `--jobs <n>` | limit the number of cases running at once |
+| `--timeout <seconds>` | set the time limit per case |
 
 ## Known gaps in 0.1
 

@@ -46,7 +46,7 @@ To embed the program in a page of your own, import the loader as a module:
 
 ## Requirements
 
-The page needs WebAssembly GC, available in current Chrome, Edge, Firefox and Safari. Async code uses JSPI (JavaScript Promise Integration), which current Chromium-based browsers enable by default.
+The page needs a browser with WebAssembly GC. Async code also needs JSPI (JavaScript Promise Integration). Use a recent Chromium-based browser for the async examples, or check whether your browser provides `WebAssembly.Suspending` and `WebAssembly.promising`.
 
 ## How the loader works
 

@@ -14,7 +14,8 @@ The compiler repository's [CONTRIBUTING.md](https://github.com/puddi-lang/puddi/
 - **Report a bug.** Open an [issue](https://github.com/puddi-lang/puddi/issues) with the smallest program that shows it, the `pud version` output and what you expected.
 - **Add a conformance case.** If you find a place where the compiler and the specification disagree, a failing case (marked `xfail` until it is fixed) is often the most useful contribution.
 - **Fix a known gap.** The [known gaps](../reference/conformance.md#known-gaps-in-01) each have a case that will tell you when you are done.
-- **Improve this book.** Every page has an edit button. Examples are compiled and run in CI, so a broken example cannot slip in.
+- **Find a first task.** Browse [good first issues](https://github.com/puddi-lang/puddi/labels/good%20first%20issue) or ask in [Discussions](https://github.com/puddi-lang/puddi/discussions).
+- **Improve this book.** Every chapter has an edit button. CI checks complete examples in both languages. When changing a technical explanation or example, update the corresponding page in `src/` and `src-zh-CN/`.
 
 ## Changing the language
 
@@ -25,8 +26,8 @@ The specification is the definition of the language, so a change to its normativ
 ```sh
 git clone https://github.com/puddi-lang/puddi-docs
 cd puddi-docs
-tools/sync.sh                       # fetch the specification and changelog
-mdbook serve --open                 # preview at http://localhost:3000
+tools/build.sh                       # build English and Simplified Chinese
+python3 -m http.server --directory book 8000
 node tools/check-examples.mjs       # compile and run every example with pud
 ```
 

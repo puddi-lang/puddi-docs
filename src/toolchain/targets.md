@@ -21,7 +21,7 @@ There is no WASI 0.2 output.
 
 `pud run` runs the component in the Wasmtime runtime embedded in `pud`. To run it elsewhere you need a host with WASI 0.3, component-model async and threading, GC and exceptions enabled. A program that uses workers also needs the `puddi:runtime` worker interfaces, which the embedded runner provides.
 
-`pud` built with `--no-default-features` has no embedded runtime; `pud run` then needs such an external host, or `PUD_HOST=node`.
+For a `pud` built with `--no-default-features`, build the component with `pud build` and invoke a compatible runtime separately. For programs that work with the JavaScript host shims, `PUD_HOST=node pud run` is another option.
 
 ## `browser`
 

@@ -7,6 +7,7 @@
 - [Installation](getting-started/installation.md)
 - [Hello, Puddi](getting-started/hello.md)
 - [Packages](getting-started/packages.md)
+- [Bundled examples](getting-started/examples.md)
 
 # Language guide
 
@@ -31,6 +32,7 @@
 - [The manifest](toolchain/manifest.md)
 - [Dependencies](toolchain/dependencies.md)
 - [Targets](toolchain/targets.md)
+- [Troubleshooting](toolchain/troubleshooting.md)
 
 # Host interop
 
@@ -55,6 +57,7 @@
 - [Language specification](reference/spec.md)
 - [Conformance suite](reference/conformance.md)
 - [Implementation status](reference/status.md)
+- [Compiler development](reference/compiler.md)
 - [Changelog](reference/changelog.md)
 
 # Community

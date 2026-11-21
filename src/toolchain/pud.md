@@ -14,7 +14,7 @@ All tooling goes through one command.
 | `pud add <repo@version\|path> [--name n]` | add a dependency |
 | `pud version` | print the version |
 
-`path` is a package directory or a single `.pud` file. Without one, `pud` looks for `pud.toml` in the current directory and its parents.
+For build, run, test, check and doc, `path` can be a package directory, the package’s `pud.toml` or a single source file. An omitted path starts manifest discovery in the current directory and searches its parents. To treat a source file as part of a package, pass the package path.
 
 ## Single-file mode
 
@@ -30,7 +30,7 @@ Compiles the package to a WebAssembly component in `target/<target>/<name>.wasm`
 
 - `--target wasi|browser|plugin` (or `-t`) picks the [target](targets.md).
 - `--emit-wat` also writes the core module as WebAssembly text, which is useful when you work on the compiler.
-- `-o dir` writes the output to another directory.
+- `-o dir` or `--out dir` writes the build output to a different directory.
 
 ## `pud run`
 
@@ -39,7 +39,7 @@ Builds and runs. What running means depends on the target:
 | Target | `pud run` |
 |---|---|
 | `wasi` | runs `main` in the embedded Wasmtime; arguments after `--` go to the program |
-| `browser` | serves the page on `http://127.0.0.1:8000` |
+| `browser` | serves the page on loopback and prints the URL to open |
 | `plugin` | `pud run --target plugin -- <export> [args]` calls one export and prints the result |
 
 `PUD_HOST=node pud run` runs a `wasi` program's core module with Node.js instead of the embedded runtime.
@@ -58,7 +58,7 @@ Formats sources in the single official style. There are no options to configure.
 
 ## `pud doc`
 
-Collects `///` doc comments of public items into `target/doc/<name>.md`.
+Collects `///` doc comments of public items into `target/doc/<name>.md` for a package. For a single file it writes `<name>.md` in the current directory.
 
 ```puddi,ignore
 /// Splits a line into words, dropping empty ones.
@@ -78,4 +78,7 @@ Adds the entry to `[deps]` in `pud.toml` and updates `pud.lock`. See [Dependenci
 
 | Variable | Effect |
 |---|---|
-| `PUD_HOST=node` | run `wasi` programs with Node.js instead of the embedded runtime |
+| `PUD_HOST=node` | run the `wasi` core module with Node.js and its JavaScript host shims |
+| `PUD_PORT` | first port to try for the browser dev server; defaults to 8000 |
+
+For options introduced on the compiler’s main branch, see [Compiler development](../reference/compiler.md).

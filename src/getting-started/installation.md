@@ -28,7 +28,7 @@ The script downloads the latest [release](https://github.com/puddi-lang/puddi/re
 curl -fsSL https://raw.githubusercontent.com/puddi-lang/puddi/main/install.sh | PUD_VERSION=v0.1.0 sh
 ```
 
-Run the script again to upgrade. To uninstall, delete `~/.pud` and the line the script added to your shell profile.
+Run the script again to upgrade. To uninstall, remove the installed executable and remove the path entry the script added to your shell profile or Windows user `PATH`. If you used `PUD_INSTALL`, look under that directory instead of `~/.pud`.
 
 ## Release archives
 
@@ -56,7 +56,7 @@ cargo install --locked --git https://github.com/puddi-lang/puddi --tag v0.1.0
 
 ## Node.js
 
-`pud test` and the `browser` target run code on a JavaScript host and need Node.js 22 or newer. Async code under Node.js needs JSPI, which is enabled by default from Node.js 24. Everything else works without Node.js.
+`pud test` and the `browser` target run code on a JavaScript host and need Node.js 22 or newer. Async code under Node.js needs JSPI, which is enabled by default from Node.js 24. The embedded WASI and plugin runners do not need Node.js. See [Troubleshooting](../toolchain/troubleshooting.md) if the JS host reports a missing WebAssembly feature.
 
 ## Check the installation
 

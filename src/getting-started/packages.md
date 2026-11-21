@@ -65,7 +65,7 @@ pud build --target browser    # target/browser/hello.wasm and puddi.mjs
 pud run --target browser      # build and serve on http://127.0.0.1:8000
 ```
 
-The build output is a WebAssembly component in `target/<target>/`. Add `target/` to `.gitignore`.
+The build output is a WebAssembly component in `target/<target>/`. The generated `.gitignore` already excludes `target/`. See the [target matrix](../toolchain/targets.md) for the files each build produces.
 
 ## Dependencies
 

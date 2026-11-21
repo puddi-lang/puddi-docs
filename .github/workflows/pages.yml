@@ -44,9 +44,7 @@ jobs:
         run: node tools/check-examples.mjs
 
       - name: Build
-        run: |
-          tools/sync.sh
-          mdbook build
+        run: tools/build.sh
 
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'

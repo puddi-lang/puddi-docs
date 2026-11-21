@@ -5,11 +5,19 @@ authors = ["Puddi community"]
 language = "en"
 src = "src"
 
+[build]
+create-missing = false
+
+[preprocessor.languages]
+command = "node tools/languages.mjs"
+before = ["links", "index"]
+
 [output.html]
 site-url = "/puddi-docs/"
 git-repository-url = "https://github.com/puddi-lang/puddi-docs"
 edit-url-template = "https://github.com/puddi-lang/puddi-docs/edit/main/{path}"
-additional-js = ["theme/puddi-highlight.js"]
+additional-js = ["theme/puddi-highlight.js", "theme/search-zh.js"]
+additional-css = ["theme/languages.css"]
 default-theme = "light"
 preferred-dark-theme = "navy"
 

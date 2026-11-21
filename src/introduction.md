@@ -45,7 +45,18 @@ fn main() {
 
 This book documents Puddi 0.1, the first release. The language is a draft and may still change between 0.x releases; the [changelog](reference/changelog.md) records what changed.
 
+## Choose a path
+
+| I want to | Start here |
+|---|---|
+| Run a command-line program | [Hello, Puddi](getting-started/hello.md) and the [bundled examples](getting-started/examples.md) |
+| Put a program on a web page | [The browser](interop/browser.md) |
+| Write a plugin for an existing host | [Plugins](interop/plugins.md) and [WIT imports](interop/wit.md) |
+| Understand a compiler error | [Troubleshooting](toolchain/troubleshooting.md) and the [implementation status](reference/status.md) |
+| Work on the compiler | [Compiler development](reference/compiler.md) and [contributing](community/contributing.md) |
+
 ## Getting help
 
-- Questions, ideas and bugs in the compiler or toolchain: [puddi issues](https://github.com/puddi-lang/puddi/issues)
+- Questions and ideas: [Puddi Discussions](https://github.com/puddi-lang/puddi/discussions)
+- Compiler and toolchain bugs: [Puddi issues](https://github.com/puddi-lang/puddi/issues)
 - Mistakes in this book: [puddi-docs issues](https://github.com/puddi-lang/puddi-docs/issues), or the edit button at the top of each page
